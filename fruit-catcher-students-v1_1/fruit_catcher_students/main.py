@@ -89,7 +89,27 @@ def main():
         start_game(ai_player, fruit_classifier)
     
 
-    
+def evaluate_classifier(classifier, test_filename):
+    from csv import reader
+    correct = 0
+    total = 0
+
+    with open(test_filename, 'r') as f:
+        csv_reader = reader(f, delimiter=';')
+        headers = next(csv_reader)
+
+        for row in csv_reader:
+            features = row[1:-1]  # [name, color, format]
+            label = int(row[-1])  # is_fruit
+            prediction = classifier(features)
+            if prediction == label:
+                correct += 1
+            total += 1
+
+    accuracy = correct / total
+    print(f"Accuracy on test set: {accuracy * 100:.2f}% ({correct}/{total})")    
 
 if __name__ == '__main__':
-    main()
+     #classifier = train_fruit_classifier('train.csv')
+     #evaluate_classifier(classifier, 'test.csv')
+     main()
