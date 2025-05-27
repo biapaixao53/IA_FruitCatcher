@@ -89,5 +89,7 @@ def main():
         start_game(ai_player, fruit_classifier)
     
 
+    
+
 if __name__ == '__main__':
     main()
